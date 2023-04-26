@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body{
+   background-color: #eee;
+   background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+}
+
+.hoverAr:hover > i {
+   transform: translateX(.7rem);
+}
+
+.hoverAl:hover > i {
+   transform: translateX(-.7rem);
+}
+
+.hide {
+   transition: all .5s;
+   opacity: 0;
+   transform: translateY(-100%);
+   position: absolute;
+}
+
+.underlineAnime::after {
+   content: "";
+   width: 0%;
+   background-color: currentColor;
+   height: 1px;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   transition: width .5s ease;
+}
+
+.underlineAnime:hover::after {
+   width: 100%;
+}
