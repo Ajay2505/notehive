@@ -4,20 +4,32 @@
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+   -webkit-appearance: none;
+   margin: 0;
 }
 
-body{
+body {
    background-color: #eee;
    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
 }
 
-.hoverAr:hover > i {
+.boxShadow {
+   box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
+   -webkit-box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
+   -moz-box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
+}
+
+.boxShadow:hover {
+   box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
+   -webkit-box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
+   -moz-box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
+}
+
+.hoverAr:hover>i {
    transform: translateX(.7rem);
 }
 
-.hoverAl:hover > i {
+.hoverAl:hover>i {
    transform: translateX(-.7rem);
 }
 
@@ -28,17 +40,103 @@ body{
    position: absolute;
 }
 
-.underlineAnime::after {
+label {
+   color: #777;
+}
+
+input:not(:placeholder-shown) +  label {
+   opacity: 1;
+   transform: translateY(0);
+   z-index: 1;
+}
+
+input:placeholder-shown + label {
+   opacity: 0;
+   visibility: hidden;
+   transform: translateY(-2rem);
+}
+
+/* .underlineAnime::before {
    content: "";
-   width: 0%;
-   background-color: currentColor;
-   height: 1px;
+   width: 100%;
+   background-color: #000;
+   height: 2px;
    position: absolute;
    bottom: 0;
    left: 0;
    transition: width .5s ease;
+} */
+
+.underlineAnime::after {
+   content: "";
+   width: 0%;
+   background-color: currentColor;
+   height: 2px;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   transition: width .5s ease-in-out;
 }
 
 .underlineAnime:hover::after {
    width: 100%;
+   left: 0;
+   right: auto;
+}
+
+.animateLines::before,
+.animateLines::after,
+.animateLines>div::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 1.5px;
+   opacity: 0;
+   background-color: #777;
+   animation: leftToRight 1s ease-in-out;
+}
+
+/* .animateLines::after {
+   bottom: 0;
+   top: auto;
+} */
+
+.animateLines>div::after {
+   content: "";
+   position: absolute;
+   top: auto;
+   left: 0;
+   bottom: 250%;
+   opacity: 0;
+   width: 1.5px;
+   height: 250%;
+   background-color: #777;
+   animation: topToBottom .5s ease-in-out;
+
+}
+
+@keyframes topToBottom {
+   0% {
+      bottom: 250%;
+      opacity: .5;
+   }
+
+   100% {
+      bottom: -350%;
+      opacity: .5;
+   }
+}
+
+@keyframes leftToRight {
+   0% {
+      left: -100%;
+      opacity: .5;
+   }
+
+   100% {
+      left: 200%;
+      opacity: .5;
+   }
 }

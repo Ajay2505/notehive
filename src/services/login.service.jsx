@@ -2,15 +2,16 @@ import { Constants } from "../Constants";
 
 
 export const loginService = async ({ email, password }) => {
-
    if (!email || !password) {
       throw new Error("Please fill the form!");
    }
    const response = await fetch(Constants.login, {
       method: "POST",
+      headers: {
+         'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ email, password })
    });
-
    if (!response) {
       throw new Error("Something went wrong!");
    }
@@ -19,6 +20,7 @@ export const loginService = async ({ email, password }) => {
       throw new Error(res.message);
    }
 
+   localStorage.setItem("notehubData", JSON.stringify(res.userData));
    return res;
 }
 
@@ -67,6 +69,7 @@ export const confirmOtpService = async ({ name, email, otp, type }) => {
       throw new Error(res.message);
    }
 
+   localStorage.setItem("notehubData", JSON.stringify(res.userData));
    return res;
 }
 
@@ -83,11 +86,7 @@ export const deleteOtpService = async ({ email, type }) => {
       body: JSON.stringify({ email })
    });
 
-   if (!response) {
+   if (!response || response.status > 205) {
       throw new Error("Something went wrong!");
-   }
-   const res = await response.json();
-   if (response.status > 205) {
-      throw new Error(res.message);
    }
 }
