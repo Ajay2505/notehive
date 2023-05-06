@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import LogoutModal from "../Modals/LogoutModal";
 import UpdateProfileModal from "../Modals/UpdateProfileModal";
 import { getAuthState, getName } from "../../slices/authSlice";
-import { logoutModalAction, getLogoutModalState, getUpdateModalState, updateModalAction} from "../../slices/modalSlice";
+import { logoutModalAction, getLogoutModalState, getUpdateModalState, updateModalAction, getDeleteAccModalState, deleteAccModalAction } from "../../slices/modalSlice";
+import DeleteAccModal from "../Modals/DeleteAccModal";
 
 export default function Navbar() {
    const authState = useSelector(getAuthState);
    const userName = useSelector(getName);
    const modalState = useSelector(getLogoutModalState);
    const updateState = useSelector(getUpdateModalState);
+   const deleteAccState = useSelector(getDeleteAccModalState);
    const dispatch = useDispatch();
 
    const [hide, setHide] = useState(true);
@@ -19,6 +21,7 @@ export default function Navbar() {
       <>
       {updateState && <UpdateProfileModal />}
       {modalState && <LogoutModal />}
+      {deleteAccState && <DeleteAccModal />}
          <div className="z-10 w-screen flex justify-between items-center absolute top-0 left-0 bg-[#f5ba13] p-5 pr-10 md:p-7 md:pr-16">
             <h1 className="text-xl md:text-3xl font-medium  text-white">NoteHive</h1>
             { authState &&
@@ -28,7 +31,7 @@ export default function Navbar() {
                      <p className="lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">{userName?.slice(0,10)}</p>
                      <p onClick={() => dispatch(updateModalAction(true))} className="cursor-pointer lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Update Profile</p>
                      <p onClick={() => dispatch(logoutModalAction(true))} className="cursor-pointer lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Log out</p>
-                     <p className="cursor-pointer text-red-500 hover:text-red-600 font-semibold select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Delete Account!</p>
+                     <p onClick={() => dispatch(deleteAccModalAction(true))} className="cursor-pointer text-red-500 hover:text-red-600 font-semibold select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Delete Account!</p>
                   </div>
                </div>
             }

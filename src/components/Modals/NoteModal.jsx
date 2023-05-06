@@ -1,13 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getNoteModal, loaderAction, noteModalAction } from "../../slices/modalSlice";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { deleteNoteService } from "../../services/data.service";
-import { deleteNoteAction } from "../../slices/noteSlice";
+
+import Loader from "../UI/Loader";
+import { getLoaderState, getNoteModal, loaderAction, noteModalAction, resetModal } from "../../slices/modalSlice";
+import { deleteNoteService, updateNoteService } from "../../services/data.service";
+import { deleteNoteAction, editNoteAction } from "../../slices/noteSlice";
 
 export default function NoteModal() {
   const dispatch = useDispatch();
   const { note } = useSelector(getNoteModal);
+  const loaderState = useSelector(getLoaderState);
+  const [title, setTitle] = useState(note?.title);
+  const [noteText, setNoteText] = useState(note?.note);
   const [noteBg, setNoteBg] = useState(note?.noteBg);
   const [textColor, setTextColor] = useState(note?.textColor);
 
@@ -23,19 +28,34 @@ export default function NoteModal() {
     dispatch(loaderAction({ loader: false }));
   }
 
+  const validateAndSave = async (evt) => {
+    dispatch(loaderAction({ loader: true }));
+    evt.target.disabled = true;
+    try {
+      const response = await updateNoteService({ note, title, noteText, noteBg, textColor });
+      toast.success(response?.message);
+      dispatch(editNoteAction({ note: response?.note }));
+    } catch ({ message }) {
+      toast.error(message);
+    }
+    
+    evt.target.disabled = false;
+    dispatch(resetModal());
+  }
+
   return (
     <>
+      {loaderState && <Loader />}
       <div onClick={() => dispatch(noteModalAction({ modalState: false, note: {} }))}
-        className="w-screen h-screen left-0 top-0 z-50 fixed flex justify-center items-center bg-[rgba(0,0,0,0.55)]">
+        className="w-screen h-screen left-0 top-0 z-40 fixed flex justify-center items-center bg-[rgba(0,0,0,0.55)]">
         <div onClick={(e) => e.stopPropagation()} style={{backgroundColor: noteBg, color: textColor}}
           className="bg-white border-2 boxShadow border-white rounded-md duration-200 relative scaleAnime flex flex-col w-full h-fit max-w-[90vw] max-h-[90vh] overflow-y-auto md:w-1/2 p-2 sm:px-7">
           <i onClick={() => dispatch(noteModalAction({ modalState: false, note: {} }))} className="fa-solid fa-xmark absolute right-6 top-4 py-[.3rem] px-[.5rem] cursor-pointer rounded-full bg-white text-red-600"></i>
-          <h1 className="text-center focus:outline-none font-bold text-lg mb-3">
-            {note?.title}
-          </h1>
-          {note?.note.split("\n").map((line, idx) => (
-            <p className="m-0 p-0" key={idx}>{line}</p>
-          ))}
+          <h1 className="text-lg text-center font-semibold mt-5">Edit Note!</h1>
+          <hr /> <br />
+          <input className="text-center bg-inherit text-inherit outline-none font-bold text-lg mb-3"
+            value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <textarea rows="5" onChange={(e) => setNoteText(e.target.value)} value={noteText} className="outline-none text-inherit scrollBar bg-inherit resize-none"></textarea>
 
           <div className="flex max-lg:flex-col justify-center items-center">
             <div className="flex justify-evenly items-center my-7 w-full">
@@ -53,7 +73,7 @@ export default function NoteModal() {
               </div>
             </div>
 
-            <button className="text-white lg:place-self-center bg-green-500 place-self-end w-fit p-2 rounded-lg">
+            <button onClick={validateAndSave} className="text-white lg:place-self-center bg-green-700 place-self-end w-fit p-2 rounded-lg">
               Save
             </button>
           </div>
@@ -63,4 +83,3 @@ export default function NoteModal() {
     </>
   );
 }
-// onInput={() => setNoteChanged(true)} contentEditable="true"

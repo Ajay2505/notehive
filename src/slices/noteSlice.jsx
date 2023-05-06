@@ -12,6 +12,12 @@ const noteSlice = createSlice({
       addNoteAction: (state, action) => {
          state.notes.push(action.payload?.note);
       },
+      editNoteAction: (state, action) => {
+         const index = state?.notes.findIndex(obj => obj._id === action.payload?.note?._id);
+         if (index !== -1) {
+            state.notes[index] = action.payload?.note;
+         }
+      },
       deleteNoteAction: (state, action) => {
          state.notes = state.notes.filter(note => note._id !== action.payload?._id)
       },
@@ -22,5 +28,5 @@ const noteSlice = createSlice({
 });
 
 export default noteSlice.reducer;
-export const { notesAction, addNoteAction, deleteNoteAction, resetNotes } = noteSlice.actions;
+export const { notesAction, addNoteAction, editNoteAction, deleteNoteAction, resetNotes } = noteSlice.actions;
 export const getNotes = (state) => state.note.notes;

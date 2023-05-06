@@ -11,7 +11,8 @@ export const Constants = {
    deleteOtp: baseUrl + "deleteOtp?otpLogin=",
    updateProfile: baseUrl + "profile",
    getNotes: baseUrl + "notes",
-   addNote: baseUrl + "add",
+   addNote: baseUrl + "note",
    deleteNote: baseUrl + "note/",
-   editnote: baseUrl + "note/"
+   editnote: baseUrl + "note/",
+   deleteAcc: baseUrl + "account"
 }
