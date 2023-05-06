@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
-import { formAction, getFormType, nameAction, tokenAction } from "../../slices/authSlice";
-import { loaderAction } from "../../slices/loaderSlice";
+import { authAction, formAction, getFormType, userDataAction } from "../../slices/authSlice";
+import { loaderAction } from "../../slices/modalSlice";
 
 import { confirmOtpService, deleteOtpService, reqOtpService } from "../../services/login.service";
 import { updateProfileService } from "../../services/data.service";
@@ -45,9 +45,10 @@ export default function EmailOtpForm() {
       dispath(loaderAction({ loader: true }));
       try {
          const response = await confirmOtpService({ email, otp: evt.target.otp.value, name, type: formType==="otpLogin" });
+         localStorage.setItem("notehubData", { token: response?.userData?.token, name: response?.response?.name });
          toast.success(response.message);
-         dispath(tokenAction(response.userData.token));
-         dispath(nameAction(response.userData.name));
+         dispath(userDataAction({ token: response?.userData?.token, name: response?.userData?.name }));
+         dispath(authAction(true));
          if (formType === "otpLogin") {
             navigate("/home");
          } else {
@@ -82,11 +83,10 @@ export default function EmailOtpForm() {
       dispath(loaderAction({ loader: true }));
       try {
          const response = await updateProfileService({ password: evt.target.password.value });
-         toast.success(response.message);
-         dispath(nameAction(response.userData.name));
+         toast.success(response?.message);
          navigate("/home");
       } catch (error) {
-         toast.error(error.message);
+         toast.error(error?.message);
       }
       dispath(loaderAction({ loader: false }));
    }
@@ -100,7 +100,7 @@ export default function EmailOtpForm() {
                      Skip for now? <i className="fa-solid duration-500 fa-arrow-right"></i> 
                   </span>
                </p>
-               <form onSubmit={updatePassword} className="flex flex-col gap-4">
+               <form onSubmit={updatePassword} className="flex flex-col gap-3">
                   <PasswordInputs />
                   <button className="duration-500 w-fit p-2 text-white rounded-lg bg-green-600 hover:bg-green-500" type="submit">Confirm</button>
                </form>
@@ -114,20 +114,20 @@ export default function EmailOtpForm() {
                </p>
                <form onSubmit={otpState ? confirmOtp : reqOtp} className="flex flex-col gap-2">
                   {formType === "signup" &&
-                     <div className="flex flex-col w-full">
-                        <input disabled={otpState} required minLength={3} name="name" type="text" className="outline-none border rounded-md focus:border focus:border-[#f5ba13] p-2" placeholder="Name"/>
-                        <label className="text-xs ml-3 font-semibold duration-300">Name</label>
+                     <div className="flex flex-col w-full relative pt-3">
+                        <input disabled={otpState} required minLength={3} name="name" type="text" className="outline-none border-2 rounded-md focus:border-2 focus:border-[#f5ba13] p-2" placeholder="Name"/>
+                        <label>Name</label>
                      </div>
                   }
-                  <div className="flex flex-col w-full">
-                     <input required disabled={otpState} className="outline-none border rounded-md focus:border focus:border-[#f5ba13] p-2" type="email" name="email" placeholder="Email" />
-                     <label className="text-xs ml-3 font-semibold duration-300">Email</label>
+                  <div className="flex flex-col w-full relative pt-3">
+                     <input required disabled={otpState} className="outline-none border-2 rounded-md focus:border-2 focus:border-[#f5ba13] p-2" type="email" name="email" placeholder="Email" />
+                     <label>Email</label>
                   </div>
                   <button className={ `${otpState && "hide"} w-fit p-2 text-white rounded-lg bg-green-600 hover:bg-green-500`} type="submit" name="button">Send OTP</button>
                   
-                  <div className="flex flex-col w-full">
-                     <input className={`${!otpState && "hide"} duration-500 outline-none border rounded-md focus:border focus:border-[#f5ba13] p-2`} type="number" name="otp" placeholder="OTP"/>
-                     <label className={`${!otpState && "hide"} text-xs ml-3 font-semibold duration-300`}>OTP</label>
+                  <div className={`${!otpState && "hidden"} flex flex-col w-full relative pt-3`}>
+                     <input className="duration-500 outline-none border-2 rounded-md focus:border-2 focus:border-[#f5ba13] p-2" type="number" name="otp" placeholder="OTP"/>
+                     <label>OTP</label>
                   </div>
                   
                   <button className={`${!otpState && "hide"} duration-500 w-fit p-2 text-white rounded-lg bg-green-600 hover:bg-green-500`} type="submit">{formType === "otpLogin" ? "Login" : "Confirm"}</button>

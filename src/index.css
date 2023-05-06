@@ -2,16 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+   background-color: #eee;
+   background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
    -webkit-appearance: none;
    margin: 0;
 }
 
-body {
-   background-color: #eee;
-   background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+button {
+   transition: transform .2s;
 }
+
+button:active {
+   transform: translateY(0.25rem);
+}
+
+button:hover {
+   opacity: .9;
+}
+
+button:disabled {
+   opacity: .5;
+}
+
+label {
+   color: #777;
+   font-size: 0.75rem;
+   line-height: 1rem;
+   font-weight: 600;
+   transition: all .3s;
+   margin-left: .75rem;
+}
+
+label {
+   position: absolute;
+   top: -10%;
+   left: 0;
+}
+
+input:not(:placeholder-shown)+label,
+textarea:not(:placeholder-shown)+label {
+   opacity: 1;
+   transform: translateY(0);
+   z-index: 1;
+}
+
+input:placeholder-shown+label,
+textarea:placeholder-shown+label {
+   opacity: 0;
+   visibility: hidden;
+   transform: translateY(2rem);
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+   background-color: #525251;
+}
+
+.scrollBar::-webkit-scrollbar {
+   width: 3px;
+}
+
 
 .boxShadow {
    box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
@@ -38,22 +93,6 @@ body {
    opacity: 0;
    transform: translateY(-100%);
    position: absolute;
-}
-
-label {
-   color: #777;
-}
-
-input:not(:placeholder-shown) +  label {
-   opacity: 1;
-   transform: translateY(0);
-   z-index: 1;
-}
-
-input:placeholder-shown + label {
-   opacity: 0;
-   visibility: hidden;
-   transform: translateY(-2rem);
 }
 
 /* .underlineAnime::before {
@@ -85,11 +124,10 @@ input:placeholder-shown + label {
 }
 
 .animateLines::before,
-.animateLines::after,
-.animateLines>div::before {
+.animateLines::after {
    content: "";
    position: absolute;
-   top: 0;
+   top: 10%;
    left: -100%;
    width: 100%;
    height: 1.5px;
@@ -98,12 +136,12 @@ input:placeholder-shown + label {
    animation: leftToRight 1s ease-in-out;
 }
 
-/* .animateLines::after {
-   bottom: 0;
+.animateLines::after {
+   bottom: -10%;
    top: auto;
-} */
+}
 
-.animateLines>div::after {
+.animateLines+div::before {
    content: "";
    position: absolute;
    top: auto;
@@ -114,7 +152,15 @@ input:placeholder-shown + label {
    height: 250%;
    background-color: #777;
    animation: topToBottom .5s ease-in-out;
+}
 
+.scaleAnime {
+   animation: scaler .3s ease;
+   transition: all 1s;
+}
+
+.clippy {
+   clip-path: polygon(0 21%, 40% 21%, 50% 0, 60% 21%, 100% 20%, 100% 100%, 0 100%);
 }
 
 @keyframes topToBottom {
@@ -138,5 +184,14 @@ input:placeholder-shown + label {
    100% {
       left: 200%;
       opacity: .5;
+   }
+}
+
+@keyframes scaler {
+   0% {
+      transform: scale(0);
+   }
+   100% {
+      transform: scale(1);
    }
 }

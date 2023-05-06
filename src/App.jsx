@@ -4,34 +4,34 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-
-import "./index.css";
 import { Provider } from "react-redux";
-import { store } from "./store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loader } from "./pages/Auth";
+
+import "./index.css";
+import { store } from "./helpers/store";
+import Loader from "./components/UI/Loader";
 
 const Auth = lazy(() => import("./pages/Auth"));
 const Home = lazy(() => import("./pages/Home"));
-const Loader = lazy(() => import("./components/UI/Loader"));
 
 const App = () => {
 
   const router = createBrowserRouter([
     {
       path: "/",
-      loader: startTransition(loader),
+      loader: () => import("./pages/Auth").then(module => module.loader()),
       element: (
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={startTransition(() => <Loader />)}>
           <Auth />
         </Suspense>
       ),
     },
     {
       path: "home",
+      loader: () => import("./pages/Home").then(module => module.loader()),
       element: (
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={startTransition(() => <Loader />)}>
           <Home />
         </Suspense>
       ),
@@ -43,7 +43,7 @@ const App = () => {
       <RouterProvider router={router} />
       <ToastContainer
         position="top-center"
-        autoClose={1300}
+        autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -1,11 +1,17 @@
 
-const baseUrl = "http://localhost:6969/";
+const baseUrl = "http://localhost:8080/";
 
 export const Constants = {
    baseUrl,
    login: baseUrl + "login",
+   logout: baseUrl + "logout",
+   logoutAll: baseUrl + "logoutAll",
    reqOtp: baseUrl + "reqOtp?otpLogin=",
    checkOtp: baseUrl + "checkOtp?otpLogin=",
    deleteOtp: baseUrl + "deleteOtp?otpLogin=",
    updateProfile: baseUrl + "profile",
+   getNotes: baseUrl + "notes",
+   addNote: baseUrl + "add",
+   deleteNote: baseUrl + "note/",
+   editnote: baseUrl + "note/"
 }
