@@ -20,19 +20,15 @@ export default function CreateNote() {
          toast.error("Sorry cannot add an empty note!");
          return;
       }
-      console.log(textColor);
       try {
          const response = await addNoteService({ title: title.value.trim(), note: note.value.trim(), textColor, noteBg });
          dispatch(addNoteAction({ note: response?.note }));
-         // toast.success(response?.message);
          title.value = "";
          note.value = "";
          setHide(true);
-         console.log(response);
       } catch ({ message }) {
          toast.error(message);
       }
-      // console.log(e.target.note.value.trim().split("\n"));
    }
 
    return (

@@ -20,10 +20,9 @@ export default function LoginForm() {
          const response= await loginService({ email: email.value, password: password.value });
          dispath(userDataAction({ token: response.userData.token, name: response.userData.name }));
          dispath(authAction(true));
-         toast.success(response.message);
          navigate("/home");
-      } catch (error) {
-         toast.error(error.message);
+      } catch ({ message }) {
+         toast.error(message);
       }
       dispath(loaderAction({ loader: false }))
    }
@@ -32,7 +31,7 @@ export default function LoginForm() {
       <>
          <form onSubmit={loginHandler} className="flex flex-col gap-3">
             <div className="w-full flex flex-col relative pt-3">
-               <input required name="email" autoComplete="off" className="outline-none rounded-md border-2 focus:border-2 focus:border-[#f5ba13] p-2" type="email" placeholder="Email" />
+               <input required name="email" className="outline-none rounded-md border-2 focus:border-2 focus:border-[#f5ba13] p-2" type="email" placeholder="Email" />
                <label className="text-xs ml-3 font-semibold duration-300">Email</label>
             </div>
             <div className="w-full flex flex-col relative pt-3">

@@ -31,7 +31,7 @@ export default function Navbar() {
                      <p className="lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">{userName?.slice(0,10)}</p>
                      <p onClick={() => dispatch(updateModalAction(true))} className="cursor-pointer lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Update Profile</p>
                      <p onClick={() => dispatch(logoutModalAction(true))} className="cursor-pointer lg:text-[#777] hover:text-black select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Log out</p>
-                     <p onClick={() => dispatch(deleteAccModalAction(true))} className="cursor-pointer text-red-500 hover:text-red-600 font-semibold select-none p-2 px-3 rounded-[inherit] hover:bg-slate-200">Delete Account!</p>
+                     <p onClick={() => dispatch(deleteAccModalAction(true))} className="cursor-pointer hoverBGAnime overflow-hidden relative text-red-500 hover:text-white font-semibold select-none p-2 px-3 rounded-[inherit] hover:bg-red-500">Delete Account!</p>
                   </div>
                </div>
             }

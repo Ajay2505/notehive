@@ -64,8 +64,8 @@ export default function EmailOtpForm() {
       try {
          setOtpState(false);
          await deleteOtpService({ email, type: formType==="otpLogin" });
-      } catch (error) {
-         toast.error(error.message);
+      } catch ({ message }) {
+         toast.error(message);
       }
    }
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 import Loader from "../UI/Loader";
-import { getLoaderState, getNoteModal, loaderAction, noteModalAction, resetModal } from "../../slices/modalSlice";
+import { getLoaderState, getNoteModal, loaderAction, resetModal } from "../../slices/modalSlice";
 import { deleteNoteService, updateNoteService } from "../../services/data.service";
 import { deleteNoteAction, editNoteAction } from "../../slices/noteSlice";
 
@@ -20,7 +20,7 @@ export default function NoteModal() {
     dispatch(loaderAction({ loader: true }));
     try {
       await deleteNoteService(note._id);
-      dispatch(noteModalAction({ modalState: false, note: {} }));
+      dispatch(resetModal());
       dispatch(deleteNoteAction({ _id: note?._id }));
     } catch ({ message }) {
       toast.error(message);
@@ -46,11 +46,11 @@ export default function NoteModal() {
   return (
     <>
       {loaderState && <Loader />}
-      <div onClick={() => dispatch(noteModalAction({ modalState: false, note: {} }))}
+      <div onClick={() => dispatch(dispatch(resetModal()))}
         className="w-screen h-screen left-0 top-0 z-40 fixed flex justify-center items-center bg-[rgba(0,0,0,0.55)]">
         <div onClick={(e) => e.stopPropagation()} style={{backgroundColor: noteBg, color: textColor}}
           className="bg-white border-2 boxShadow border-white rounded-md duration-200 relative scaleAnime flex flex-col w-full h-fit max-w-[90vw] max-h-[90vh] overflow-y-auto md:w-1/2 p-2 sm:px-7">
-          <i onClick={() => dispatch(noteModalAction({ modalState: false, note: {} }))} className="fa-solid fa-xmark absolute right-6 top-4 py-[.3rem] px-[.5rem] cursor-pointer rounded-full bg-white text-red-600"></i>
+          <i onClick={() => dispatch(dispatch(resetModal()))} className="fa-solid fa-xmark absolute right-6 top-4 py-[.3rem] px-[.5rem] cursor-pointer rounded-full bg-white text-red-600"></i>
           <h1 className="text-lg text-center font-semibold mt-5">Edit Note!</h1>
           <hr /> <br />
           <input className="text-center bg-inherit text-inherit outline-none font-bold text-lg mb-3"

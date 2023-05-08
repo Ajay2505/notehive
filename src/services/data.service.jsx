@@ -9,7 +9,7 @@ export const updateProfileService = async (data) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      "Authorization": token,
     },
     body: JSON.stringify(data),
   });
@@ -88,7 +88,7 @@ export const updateNoteService = async ({
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
+      "Authorization": token,
     },
     body: JSON.stringify(updated),
   });
@@ -116,16 +116,13 @@ export const deleteNoteService = async (id) => {
   if (!response) {
     throw new Error("Something went wrong!");
   }
-  const res = await response.json();
   if (response.status === 401) {
     localStorage.removeItem("notehubData");
-    throw new Error(res.message);
+    throw new Error("Session timed out! Please login again");
   }
-  if (response.status > 205) {
-    throw new Error(res.message);
+  if (response.status > 300) {
+    throw new Error("Something went wrong!");
   }
-
-  return res;
 };
 
 export const deleteAccService = async () => {
@@ -144,14 +141,12 @@ export const deleteAccService = async () => {
   if (!response) {
     throw new Error("Something went wrong!");
   }
-  const res = await response.json();
+  
   if (response.status === 401) {
     localStorage.removeItem("notehubData");
-    throw new Error(res.message);
+    throw new Error("Session timed out! Please login again");
   }
-  if (response.status > 205) {
-    throw new Error(res.message);
+  if (response.status > 300) {
+    throw new Error("Something went wrong!");
   }
-
-  return res;
 };

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import PasswordInputs from "../UI/PasswordInputs";
 import { updateModalAction } from "../../slices/modalSlice";
 import { getName, userNameAction } from "../../slices/authSlice";
-import { toast } from "react-toastify";
 import { updateProfileService } from "../../services/data.service";
 
 export default function UpdateProfileModal() {

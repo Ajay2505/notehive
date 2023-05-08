@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import CreateNote from "../components/forms/CreateNote";
 import Notes from "../components/Notes/Notes";
@@ -36,7 +36,6 @@ export default function Home() {
 
   return (
     <>
-      {/* {ReactDOM.createPortal(<NoteModal />, document.getElementById("modals"))} */}
       {sessionModal && <SessionModal />}
       {modalState && <NoteModal />}
       <div className="w-screen h-screen overflow-x-hidden overflow-y-auto">
