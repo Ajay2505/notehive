@@ -17,7 +17,7 @@
     "redux": "^4.2.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://ajay2505.github.io/notehive/",
+  "homepage": "https://Ajay2505.github.io/notehive",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
