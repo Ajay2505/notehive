@@ -18,7 +18,6 @@ export const loginService = async ({ email, password }) => {
   if (response.status > 205) {
     throw new Error(res.message);
   }
-  // const userData = res?.userData;
   localStorage.setItem("notehubData", JSON.stringify(res.userData));
   return res;
 };

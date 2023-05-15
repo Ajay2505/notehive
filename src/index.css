@@ -69,15 +69,15 @@ textarea:placeholder-shown+label {
 
 
 .boxShadow {
-   box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
-   -webkit-box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
-   -moz-box-shadow: 17px 15px 7px -5px rgba(0, 0, 0, 0.21);
-}
-
-.boxShadow:hover {
    box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
    -webkit-box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
    -moz-box-shadow: 11px 10px 7px -5px rgba(0, 0, 0, 0.21);
+}
+
+.boxShadow:hover {
+   box-shadow: 7px 6px 7px -5px rgba(0, 0, 0, 0.21);
+   -webkit-box-shadow: 7px 6px 7px -5px rgba(0, 0, 0, 0.21);
+   -moz-box-shadow: 7px 6px 7px -5px rgba(0, 0, 0, 0.21);
 }
 
 .hoverAr:hover>i {
@@ -98,8 +98,8 @@ textarea:placeholder-shown+label {
 /* .underlineAnime::before {
    content: "";
    width: 100%;
-   background-color: #000;
-   height: 2px;
+   background-color: #999;
+   height: 2.5px;
    position: absolute;
    bottom: 0;
    left: 0;
@@ -110,7 +110,7 @@ textarea:placeholder-shown+label {
    content: "";
    width: 0%;
    background-color: currentColor;
-   height: 2px;
+   height: 2.5px;
    position: absolute;
    bottom: 0;
    right: 0;

@@ -12,6 +12,7 @@ export const Constants = {
    updateProfile: baseUrl + "profile",
    getNotes: baseUrl + "notes",
    addNote: baseUrl + "note",
+   addNotes: baseUrl + "notes",
    deleteNote: baseUrl + "note/",
    editnote: baseUrl + "note/",
    deleteAcc: baseUrl + "account"

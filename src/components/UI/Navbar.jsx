@@ -6,8 +6,9 @@ import UpdateProfileModal from "../Modals/UpdateProfileModal";
 import { getAuthState, getName } from "../../slices/authSlice";
 import { logoutModalAction, getLogoutModalState, getUpdateModalState, updateModalAction, getDeleteAccModalState, deleteAccModalAction } from "../../slices/modalSlice";
 import DeleteAccModal from "../Modals/DeleteAccModal";
+import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ home }) {
    const authState = useSelector(getAuthState);
    const userName = useSelector(getName);
    const modalState = useSelector(getLogoutModalState);
@@ -24,6 +25,7 @@ export default function Navbar() {
       {deleteAccState && <DeleteAccModal />}
          <div className="z-10 w-screen flex justify-between items-center absolute top-0 left-0 bg-[#f5ba13] p-5 pr-10 md:p-7 md:pr-16">
             <h1 className="text-xl md:text-3xl font-medium  text-white">NoteHive</h1>
+            {home && !authState && (<Link to={"/"} className="text-white font-semibold relative md:text-lg underlineAnime">Login</Link>)}
             { authState &&
                <div onMouseOver={() => setHide(false)} onMouseLeave={() => setHide(true)} className="relative">
                   <i className={`fa-${userName?.charAt(0)?.toLowerCase()} fa-solid select-none cursor-pointer text-sm leading-4 md:text-lg md:leading-4 rounded-full bg-white p-2`}></i>

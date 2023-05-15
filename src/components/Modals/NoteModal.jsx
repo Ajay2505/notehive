@@ -53,9 +53,9 @@ export default function NoteModal() {
           <i onClick={() => dispatch(dispatch(resetModal()))} className="fa-solid fa-xmark absolute right-6 top-4 py-[.3rem] px-[.5rem] cursor-pointer rounded-full bg-white text-red-600"></i>
           <h1 className="text-lg text-center font-semibold mt-5">Edit Note!</h1>
           <hr /> <br />
-          <input className="text-center bg-inherit text-inherit outline-none font-bold text-lg mb-3"
+          <input placeholder="Title" className="text-center placeholder:text-inherit placeholder:opacity-40 bg-inherit text-inherit outline-none font-bold text-lg mb-3"
             value={title} onChange={(e) => setTitle(e.target.value)}/>
-          <textarea rows="5" onChange={(e) => setNoteText(e.target.value)} value={noteText} className="outline-none text-inherit scrollBar bg-inherit resize-none"></textarea>
+          <textarea placeholder="Note" rows="5" onChange={(e) => setNoteText(e.target.value)} value={noteText} className="outline-none placeholder:opacity-40 placeholder:text-inherit text-inherit scrollBar bg-inherit resize-none"></textarea>
 
           <div className="flex max-lg:flex-col justify-center items-center">
             <div className="flex justify-evenly items-center my-7 w-full">

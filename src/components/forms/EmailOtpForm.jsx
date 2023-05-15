@@ -25,7 +25,6 @@ export default function EmailOtpForm() {
    const reqOtp = async (evt) => {
       evt.preventDefault();
       if (formType !== "otpLogin") {
-         console.log(evt.target.name.value);
          setName(evt.target.name.value);
       }
       setEmail(evt.target.email.value);

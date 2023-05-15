@@ -42,6 +42,7 @@ export default function LoginForm() {
          </form>
          <p>Dont have an account? <span onClick={() => dispath(formAction({ formType: "signup" }))} className="cursor-pointer text-blue-600 relative underlineAnime">Sign Up!</span></p>
          <p onClick={() => dispath(formAction({ formType: "otpLogin" }))} className="text-blue-600 w-fit relative underlineAnime cursor-pointer hoverAr">Login using OTP <i className="fa-solid duration-500 fa-arrow-right child:text-red-400"></i></p>
+         <p onClick={() => navigate("/home")} className="text-blue-600 w-fit relative underlineAnime cursor-pointer hoverAr">Continue as Guest <i className="fa-solid duration-500 fa-arrow-right child:text-red-400"></i></p>
       </>
    );
 }

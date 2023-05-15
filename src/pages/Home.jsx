@@ -8,16 +8,18 @@ import Notes from "../components/Notes/Notes";
 import Navbar from "../components/UI/Navbar";
 import NoteModal from "../components/Modals/NoteModal";
 import SessionModal from "../components/Modals/SessionModal";
-import { getNoteModal } from "../slices/modalSlice";
+import { getNoteModal, gethHasGuestNotesState, hasGuestNotesAction } from "../slices/modalSlice";
 import { Constants } from "../helpers/Constants";
 import { notesAction } from "../slices/noteSlice";
 import { authAction, userDataAction } from "../slices/authSlice";
+import BackupNotesModal from "../components/Modals/BackupNotesModal";
 
 export default function Home() {
   const { modalState } = useSelector(getNoteModal);
   const data = useLoaderData();
   const dispatch = useDispatch();
   const [sessionModal, setSessionModal] = useState(false);
+  const hasGuestNotes = useSelector(gethHasGuestNotesState);
 
   useEffect(() => {
     if (data?.errorStatus === 401) {
@@ -25,21 +27,25 @@ export default function Home() {
       return;
     }
     const userData = JSON.parse(localStorage.getItem("notehubData"));
+    dispatch(notesAction({ notes: data?.notes }));
     if (!userData) {
       dispatch(authAction(false));
       return;
     }
     dispatch(userDataAction({ name: userData?.name, token: userData?.token }));
     dispatch(authAction(true));
-    dispatch(notesAction({ notes: data?.notes }));
-  }, []);
+    const notes = JSON.parse(localStorage.getItem("notehubNotes"));
+    if (!notes?.length) return;
+    dispatch(hasGuestNotesAction(true));
+}, []);
 
   return (
     <>
       {sessionModal && <SessionModal />}
       {modalState && <NoteModal />}
+      {hasGuestNotes && <BackupNotesModal />}
       <div className="w-screen h-screen overflow-x-hidden overflow-y-auto">
-        <Navbar />
+        <Navbar home={true}/>
         <CreateNote />
         <Notes />
       </div>
@@ -51,7 +57,7 @@ export const loader = async () => {
   const token = JSON.parse(localStorage.getItem("notehubData"))?.token;
   if (!token) {
     toast.info("Login to save your notes!");
-    return {};
+    return { notes: JSON.parse(localStorage.getItem("notehubNotes")) || [] };
   }
 
   try {
@@ -62,7 +68,7 @@ export const loader = async () => {
         "Authorization": token,
       },
     });
-
+    const res = await response.json();
     if (!response) {
       return toast.error("Something went wrong!");
     }
@@ -70,13 +76,13 @@ export const loader = async () => {
       localStorage.removeItem("notehubData");
       return { errorStatus: 401 };
     }
-    if (response.status > 399) {
+    if (response.status > 299) {
       toast.error(response?.message);
       return {};
     }
-    return response;
-  } catch (error) {
-    toast.error(error?.message);
+    return res;
+  } catch ({ message }) {
+    toast.error(message);
     return {};
   }
 };
