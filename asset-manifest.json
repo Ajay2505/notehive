@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/notehive/static/css/main.b6c3027f.css",
-    "main.js": "/notehive/static/js/main.d1082dfb.js",
+    "main.js": "/notehive/static/js/main.86236788.js",
     "static/js/124.f647cb98.chunk.js": "/notehive/static/js/124.f647cb98.chunk.js",
     "static/js/796.56753767.chunk.js": "/notehive/static/js/796.56753767.chunk.js",
     "static/js/291.24e7b15f.chunk.js": "/notehive/static/js/291.24e7b15f.chunk.js",
     "index.html": "/notehive/index.html",
     "main.b6c3027f.css.map": "/notehive/static/css/main.b6c3027f.css.map",
-    "main.d1082dfb.js.map": "/notehive/static/js/main.d1082dfb.js.map",
+    "main.86236788.js.map": "/notehive/static/js/main.86236788.js.map",
     "124.f647cb98.chunk.js.map": "/notehive/static/js/124.f647cb98.chunk.js.map",
     "796.56753767.chunk.js.map": "/notehive/static/js/796.56753767.chunk.js.map",
     "291.24e7b15f.chunk.js.map": "/notehive/static/js/291.24e7b15f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b6c3027f.css",
-    "static/js/main.d1082dfb.js"
+    "static/js/main.86236788.js"
   ]
 }
