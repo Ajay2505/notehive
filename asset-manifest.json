@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/notehive/static/css/main.b6c3027f.css",
-    "main.js": "/notehive/static/js/main.52d31a4b.js",
-    "static/js/124.6cd976a1.chunk.js": "/notehive/static/js/124.6cd976a1.chunk.js",
-    "static/js/796.0f263e37.chunk.js": "/notehive/static/js/796.0f263e37.chunk.js",
-    "static/js/291.420ffcef.chunk.js": "/notehive/static/js/291.420ffcef.chunk.js",
+    "main.js": "/notehive/static/js/main.aec8fc8a.js",
+    "static/js/124.52f8a54d.chunk.js": "/notehive/static/js/124.52f8a54d.chunk.js",
+    "static/js/796.56753767.chunk.js": "/notehive/static/js/796.56753767.chunk.js",
+    "static/js/291.24e7b15f.chunk.js": "/notehive/static/js/291.24e7b15f.chunk.js",
     "index.html": "/notehive/index.html",
     "main.b6c3027f.css.map": "/notehive/static/css/main.b6c3027f.css.map",
-    "main.52d31a4b.js.map": "/notehive/static/js/main.52d31a4b.js.map",
-    "124.6cd976a1.chunk.js.map": "/notehive/static/js/124.6cd976a1.chunk.js.map",
-    "796.0f263e37.chunk.js.map": "/notehive/static/js/796.0f263e37.chunk.js.map",
-    "291.420ffcef.chunk.js.map": "/notehive/static/js/291.420ffcef.chunk.js.map"
+    "main.aec8fc8a.js.map": "/notehive/static/js/main.aec8fc8a.js.map",
+    "124.52f8a54d.chunk.js.map": "/notehive/static/js/124.52f8a54d.chunk.js.map",
+    "796.56753767.chunk.js.map": "/notehive/static/js/796.56753767.chunk.js.map",
+    "291.24e7b15f.chunk.js.map": "/notehive/static/js/291.24e7b15f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b6c3027f.css",
-    "static/js/main.52d31a4b.js"
+    "static/js/main.aec8fc8a.js"
   ]
 }
